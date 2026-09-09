@@ -16,26 +16,36 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                bat 'docker build -t %IMAGE_NAME%:latest .'
+                sh 'docker build -t ${IMAGE_NAME}:latest .'
             }
         }
 
         stage('Stop Old Container') {
             steps {
-                bat 'docker stop %CONTAINER_NAME% || exit 0'
+                sh 'docker stop ${CONTAINER_NAME} || true'
             }
         }
 
         stage('Remove Old Container') {
             steps {
-                bat 'docker rm %CONTAINER_NAME% || exit 0'
+                sh 'docker rm ${CONTAINER_NAME} || true'
             }
         }
 
         stage('Deploy New Container') {
             steps {
-                bat 'docker run -d --name %CONTAINER_NAME% -p 3000:3000 %IMAGE_NAME%:latest'
+                sh 'docker run -d --name ${CONTAINER_NAME} -p 3000:3000 ${IMAGE_NAME}:latest'
             }
+        }
+    }
+
+    post {
+        success {
+            echo 'Deployment successful!'
+        }
+
+        failure {
+            echo 'Deployment failed!'
         }
     }
 }
