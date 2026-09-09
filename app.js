@@ -4,7 +4,7 @@ const app = express();
 const PORT = 3000;
 
 app.get("/", (req, res) => {
-    res.send("Hello HFC Cambodia V3.0");
+    res.send("Hello HFC Cambodia V4.0");
 });
 
 app.get("/health", (req, res) => {
