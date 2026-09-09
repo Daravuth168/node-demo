@@ -1,4 +1,3 @@
-```groovy
 pipeline {
     agent any
 
@@ -37,10 +36,7 @@ pipeline {
             steps {
                 sh '''
                     echo "===== app.js inside Docker Image ====="
-
-                    docker run --rm \
-                        ${IMAGE_NAME}:latest \
-                        cat /app/app.js
+                    docker run --rm ${IMAGE_NAME}:latest cat /app/app.js
                 '''
             }
         }
@@ -76,11 +72,8 @@ pipeline {
             steps {
                 sh '''
                     docker ps
-
                     echo "===== app.js inside Running Container ====="
-
-                    docker exec ${CONTAINER_NAME} \
-                        cat /app/app.js
+                    docker exec ${CONTAINER_NAME} cat /app/app.js
                 '''
             }
         }
@@ -96,4 +89,3 @@ pipeline {
         }
     }
 }
-```
