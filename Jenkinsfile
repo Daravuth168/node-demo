@@ -16,7 +16,7 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                sh 'docker run -d --name node-demo-container -p 3000:3000 node-demo:latest'
+                sh 'docker build --no-cache -t ${IMAGE_NAME}:latest .'
             }
         }
 
